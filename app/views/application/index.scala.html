@@ -3,21 +3,48 @@
 <!DOCTYPE html>
 
 <html>
-<head lang="en">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+    <script src="@routes.Assets.versioned("javascripts/xhrexample.js")" ></script>
+
     <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
 
-<h1>Tick all the beagles:</h1>
-<!-- TODO: This form probably has the wrong method... -->
-<form action="captcha" >
-    <!--
-      TODO: For each index in the array, show a checkbox with the value of the index, and the relevant img
-    -->
-    <button type="submit">Submit</button>
-</form>
+<h1>AJAX Gibberish getter and poster</h1>
+
+<div class="input-group">
+<label>Server</label>
+http://<input type="text" id="i_server" />/gibberish
+</div>
+
+<h3>Get gibberish</h3>
+
+<div class="input-group">
+<label>Number</label>
+<input type="number" id="i_howmany" />
+<button onclick="javascript: getGibberish()">Get gibberish</button>
+</div>
+
+<h3>Post gibberish</h3>
+<button onclick="javascript: postGibberish()">Post gibberish</button>
+</div>
+
+
 
 </body>
 </html>
