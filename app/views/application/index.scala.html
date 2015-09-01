@@ -17,7 +17,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
-    <script src="@routes.Assets.versioned("javascripts/xhrexample.js")" ></script>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/gibberish.js")" defer ></script>
 
     <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
@@ -25,24 +27,7 @@
 </head>
 <body>
 
-<h1>AJAX Gibberish getter and poster</h1>
-
-<div class="input-group">
-<label>Server</label>
-http://<input type="text" id="i_server" />/gibberish
-</div>
-
-<h3>Get gibberish</h3>
-
-<div class="input-group">
-<label>Number</label>
-<input type="number" id="i_howmany" />
-<button onclick="javascript: getGibberish()">Get gibberish</button>
-</div>
-
-<h3>Post gibberish</h3>
-<button onclick="javascript: postGibberish()">Post gibberish</button>
-</div>
+<div id="renderme"></div>
 
 
 

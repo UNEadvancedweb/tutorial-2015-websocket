@@ -10,9 +10,20 @@ window.getGibberish = () ->
   path = "http://" + server + "/gibberish?n=" + howmany
 
   xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = () ->
+    if xhr.readyState == 4
+      arr = JSON.parse(xhr.responseText)
+      gibberish = ""
+      for obj in arr
+        console.log(obj)
+        gibberish += "#{obj.subject} #{obj.adverb} #{obj.verb} #{obj.adjective} #{obj.object}\n"
+      $("#gibber").val(gibberish)
+
+
   console.log("asking for gibberish")
   xhr.open("GET", path, true)
   xhr.send()
+
 
 
 
