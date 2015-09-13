@@ -11,7 +11,9 @@ window.getGibberish = (state) ->
   xhr.onreadystatechange = () ->
     if xhr.readyState == 4
       arr = JSON.parse(xhr.responseText)
-      # Now you need to make it do something with the array...
+      window.gibberish = arr
+      console.log(arr)
+      rerender();
 
   console.log("asking for gibberish")
   xhr.open("GET", path, true)
