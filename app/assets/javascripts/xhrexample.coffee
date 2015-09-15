@@ -3,6 +3,8 @@ console.log("I was loaded")
 
 window.gibberish = []
 
+window.received = []
+
 window.getGibberish = (state) ->
 
   path = "http://" + state.server + "/gibberish?n=" + state.num
@@ -19,3 +21,15 @@ window.getGibberish = (state) ->
   xhr.open("GET", path, true)
   xhr.send()
 
+
+window.getSocket = () ->
+  websocket = new WebSocket("ws://#{window.location.host}/websocket?topic=Algernon");
+  websocket.onmessage = (msg) ->
+    console.log("Received a message over the websocket:")
+    console.log(msg)
+    console.log("---")
+    json = JSON.parse(msg.data)
+    window.received.push(json)
+    rerender()
+
+window.getSocket()

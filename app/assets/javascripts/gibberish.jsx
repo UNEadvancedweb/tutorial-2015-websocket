@@ -49,12 +49,13 @@ var GibberishApp = React.createClass({
           <button type="submit">Get gibberish</button>
         </form>
         <GibberishList gibberishList={window.gibberish} />
+
+        <h2>And over the WebSocket...</h2>
+        <GibberishList gibberishList={window.received} />
       </div>
     );
   }
 });
-
-
 
 var rerender = function() {
   React.render(<GibberishApp />, mountNode);
