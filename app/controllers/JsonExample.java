@@ -75,17 +75,34 @@ public class JsonExample extends Controller {
         return WebSocket.<String>withActor((out) -> GibberishWebSocketActor.props(topic, out));
     }
 
+    /**
+     * Our Server Sent Events endpoint. This uses an HTTP response with a chunked encoding, and a Content-Type of
+     * text/event-stream so it looks very much like any other controller method (returning Result, etc)
+     */
     public static Result eventSource(final String topic) {
+
+        /*
+         Use Play's helper method to create the event source.
+         It takes a lambda, which is passed the event source as its argument
+         */
         EventSource e = EventSource.whenConnected(eventSource -> {
+
+            // Create a listener for gibberish
             GibberishListener l = (g) -> {
                 if (g.getSubject().equals(topic)) {
+                    // If the subject matches the topic we're listening for, send the gibberish as a server-sent event
                     eventSource.send(EventSource.Event.event(toJson(g)));
                 }
             };
 
+            // Add the listener, to listen for gibberish
             GibberishHub.getInstance().addListener(l);
+
+            // When the event source closes, remove the gibberish listener to clean up
             eventSource.onDisconnected(() -> GibberishHub.getInstance().removeListener(l));
         });
+
+        // Return ok with our event source
         return ok(e);
     }
 
