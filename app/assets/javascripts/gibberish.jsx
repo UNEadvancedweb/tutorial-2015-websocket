@@ -50,7 +50,7 @@ var GibberishApp = React.createClass({
         </form>
         <GibberishList gibberishList={window.gibberish} />
 
-        <h2>And over the WebSocket...</h2>
+        <h2>And over the EventSource...</h2>
         <GibberishList gibberishList={window.received} />
       </div>
     );

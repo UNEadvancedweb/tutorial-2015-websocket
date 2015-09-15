@@ -32,4 +32,15 @@ window.getSocket = () ->
     window.received.push(json)
     rerender()
 
-window.getSocket()
+
+window.getSSE = () ->
+  sse = new EventSource("eventsource?topic=Algernon");
+  sse.onmessage = (msg) ->
+    console.log("Received a message over the EventSource:")
+    console.log(msg)
+    console.log("---")
+    json = JSON.parse(msg.data)
+    window.received.push(json)
+    rerender()
+
+window.getSSE()

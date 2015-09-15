@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Gibberish;
 import model.GibberishHub;
+import model.GibberishListener;
+import play.libs.EventSource;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -71,6 +73,20 @@ public class JsonExample extends Controller {
          GibberishWebSocketActor.props(topic, out) will produce a Props object saying that.
          */
         return WebSocket.<String>withActor((out) -> GibberishWebSocketActor.props(topic, out));
+    }
+
+    public static Result eventSource(final String topic) {
+        EventSource e = EventSource.whenConnected(eventSource -> {
+            GibberishListener l = (g) -> {
+                if (g.getSubject().equals(topic)) {
+                    eventSource.send(EventSource.Event.event(toJson(g)));
+                }
+            };
+
+            GibberishHub.getInstance().addListener(l);
+            eventSource.onDisconnected(() -> GibberishHub.getInstance().removeListener(l));
+        });
+        return ok(e);
     }
 
 }
