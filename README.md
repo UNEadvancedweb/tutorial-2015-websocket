@@ -40,7 +40,7 @@ happens on the server.
 But how will we get the WebSocket actors to hear about the events? In this tutorial, let's just do that using plain old
 Java.
 
-First, in the model package, let's create an interface called `MessageListener`. This should have one method in it:
+First, in the model package, let's create an interface called `GibberishListener`. This should have one method in it:
 
 ```java
 public interface GibberishListener {
@@ -50,7 +50,7 @@ public interface GibberishListener {
 }
 ```
 
-Then create a class called `MessageHub`. This is going to be a singleton (there'll be one of them) that holds a list of
+Then create a class called `GibberishHub`. This is going to be a singleton (there'll be one of them) that holds a list of
 GibberishListeners, and can broadcast Gibberish to them.
 
 ```java
@@ -99,7 +99,7 @@ public class GibberishHub {
 
 Play uses the "Akka" framework for actors. So some of what we'll see here is Akka code.
 
-In controllers, create a class for the actor. Let's call it `GibberishWebsocketActor`. There's quite a lot to this class,
+In the controllers package, create a class for the actor. Let's call it `GibberishWebsocketActor`. There's quite a lot to this class,
 so rather than give instructions on how to write it piece-by-piece (which would be error-prone), I'm pasting in the code
 with comments to explain what each part of the code does.
 
@@ -143,7 +143,7 @@ public class GibberishWebSocketActor extends UntypedActor {
 
         /*
           Our GibberishListener, written as a Java 8 Lambda.
-          Whenever we receive a gibberish, convert it to a JSON string, and send it to the client.
+          Whenever we receive a gibberish, if it matches our topic, convert it to a JSON string, and send it to the client.
          */
         this.listener = (g) -> {
             if (g.getSubject().equals(this.topic)) {
