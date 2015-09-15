@@ -30,7 +30,12 @@ And at some point in its processing, it might send other Actors messages too.
 
 ## First, let's add a publish-subscribe interface and some events
 
-Each of our WebSocket connections is going to be an Actor. They will receive messages and broadcast them out to the browser.
+Each of our WebSocket connections is going to be have two Actors. One Actor will be for sending things to the client, and 
+Play will create it automatically using its internal classes. The other Actor is the server end of our websocket -- its
+in-tray contains messages the browser has sent to it over the websocket. We're going to need to write this server actor.
+
+In this example, we're mostly going to use the server actor to send messages to the browser actor, whenever an event
+happens on the server.
 
 But how will we get the WebSocket actors to hear about the events? In this tutorial, let's just do that using plain old
 Java.
